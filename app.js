@@ -3,19 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const card =
     document.getElementById("birthdayCard");
 
+
   const pages =
     Array.from(
       document.querySelectorAll(".page")
     );
 
-  const prevButton =
-    document.getElementById("prevPage");
-
-  const nextButton =
-    document.getElementById("nextPage");
-
-  const currentPageText =
-    document.getElementById("currentPage");
 
   const cardHint =
     document.getElementById("cardHint");
@@ -23,61 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentPage = 0;
 
+
   let touchStartX = 0;
+
+  let touchStartY = 0;
+
   let touchEndX = 0;
 
-
-  /* =========================
-     ABRIR TARJETA
-  ========================= */
-
-  function openCard() {
-
-    if (
-      card.classList.contains("open")
-    ) {
-      return;
-    }
-
-    card.classList.add("open");
-
-    card.setAttribute(
-      "aria-expanded",
-      "true"
-    );
-
-    cardHint.textContent =
-      "Desliza o usa las flechas para ver las páginas";
-
-  }
+  let touchEndY = 0;
 
 
-  /* =========================
-     CERRAR TARJETA
-  ========================= */
 
-  function closeCard() {
-
-    card.classList.remove("open");
-
-    card.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-
-    currentPage = 0;
-
-    showPage(currentPage);
-
-    cardHint.textContent =
-      "👆 Toca la tarjeta para abrirla";
-
-  }
-
-
-  /* =========================
+  /* =====================================
      MOSTRAR PAGINA
-  ========================= */
+  ====================================== */
 
   function showPage(index) {
 
@@ -122,25 +74,70 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-
-    currentPageText.textContent =
-      index + 1;
+  }
 
 
-    prevButton.disabled =
-      index === 0;
+
+  /* =====================================
+     ABRIR TARJETA
+  ====================================== */
+
+  function openCard() {
+
+    if (
+      card.classList.contains("open")
+    ) {
+      return;
+    }
 
 
-    nextButton.disabled =
-      index ===
-      pages.length - 1;
+    card.classList.add("open");
+
+
+    card.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+
+    cardHint.textContent =
+      "Desliza para descubrir la invitación";
 
   }
 
 
-  /* =========================
+
+  /* =====================================
+     CERRAR TARJETA
+  ====================================== */
+
+  function closeCard() {
+
+    card.classList.remove("open");
+
+
+    card.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+
+    currentPage = 0;
+
+
+    showPage(currentPage);
+
+
+    cardHint.textContent =
+      "Toca la tarjeta para abrirla";
+
+  }
+
+
+
+  /* =====================================
      SIGUIENTE PAGINA
-  ========================= */
+  ====================================== */
 
   function nextPage() {
 
@@ -158,9 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================
+
+  /* =====================================
      PAGINA ANTERIOR
-  ========================= */
+  ====================================== */
 
   function previousPage() {
 
@@ -177,37 +175,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================
-     CLICK EN TARJETA
-  ========================= */
+
+  /* =====================================
+     ABRIR AL TOCAR
+  ====================================== */
 
   card.addEventListener(
     "click",
     (event) => {
 
       /*
-        No abrir/cerrar si tocamos
-        botones o enlaces internos.
+        No ejecutar si se toca
+        alguno de los enlaces.
       */
 
       if (
-        event.target.closest(
-          "button, a"
-        )
+        event.target.closest("a")
       ) {
         return;
       }
 
 
-      /*
-        Si está cerrada,
-        la abrimos.
-      */
-
       if (
-        !card.classList.contains(
-          "open"
-        )
+        !card.classList.contains("open")
       ) {
 
         openCard();
@@ -218,54 +208,32 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================
-     BOTONES
-  ========================= */
 
-  nextButton.addEventListener(
-    "click",
-    (event) => {
-
-      event.stopPropagation();
-
-      nextPage();
-
-    }
-  );
-
-
-  prevButton.addEventListener(
-    "click",
-    (event) => {
-
-      event.stopPropagation();
-
-      previousPage();
-
-    }
-  );
-
-
-  /* =========================
-     SWIPE CELULAR
-  ========================= */
+  /* =====================================
+     INICIO DEL SWIPE
+  ====================================== */
 
   card.addEventListener(
     "touchstart",
     (event) => {
 
       if (
-        !card.classList.contains(
-          "open"
-        )
+        !card.classList.contains("open")
       ) {
         return;
       }
 
 
+      const touch =
+        event.changedTouches[0];
+
+
       touchStartX =
-        event.changedTouches[0]
-          .screenX;
+        touch.clientX;
+
+
+      touchStartY =
+        touch.clientY;
 
     },
     {
@@ -274,22 +242,32 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
+
+  /* =====================================
+     FINAL DEL SWIPE
+  ====================================== */
+
   card.addEventListener(
     "touchend",
     (event) => {
 
       if (
-        !card.classList.contains(
-          "open"
-        )
+        !card.classList.contains("open")
       ) {
         return;
       }
 
 
+      const touch =
+        event.changedTouches[0];
+
+
       touchEndX =
-        event.changedTouches[0]
-          .screenX;
+        touch.clientX;
+
+
+      touchEndY =
+        touch.clientY;
 
 
       handleSwipe();
@@ -301,11 +279,21 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
+
+  /* =====================================
+     DETECTAR DIRECCION
+  ====================================== */
+
   function handleSwipe() {
 
-    const distance =
+    const distanceX =
       touchEndX -
       touchStartX;
+
+
+    const distanceY =
+      touchEndY -
+      touchStartY;
 
 
     const minimumSwipe =
@@ -313,12 +301,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-      Swipe izquierda
-      -> siguiente
+      Ignorar el gesto si fue
+      principalmente vertical.
     */
 
     if (
-      distance <
+      Math.abs(distanceY) >
+      Math.abs(distanceX)
+    ) {
+
+      return;
+
+    }
+
+
+    /*
+      DESLIZAR HACIA LA IZQUIERDA
+      -> página siguiente
+    */
+
+    if (
+      distanceX <
       -minimumSwipe
     ) {
 
@@ -330,12 +333,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-      Swipe derecha
-      -> anterior
+      DESLIZAR HACIA LA DERECHA
+      -> página anterior
     */
 
     if (
-      distance >
+      distanceX >
       minimumSwipe
     ) {
 
@@ -346,27 +349,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================
-     CERRAR AL TOCAR FUERA
-  ========================= */
+
+  /* =====================================
+     CERRAR TOCANDO FUERA
+  ====================================== */
 
   document.addEventListener(
     "click",
     (event) => {
 
       if (
-        card.contains(
-          event.target
-        )
+        card.contains(event.target)
       ) {
         return;
       }
 
 
       if (
-        card.classList.contains(
-          "open"
-        )
+        card.classList.contains("open")
       ) {
 
         closeCard();
@@ -377,75 +377,13 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================
-     TECLADO
-  ========================= */
 
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (
-        !card.classList.contains(
-          "open"
-        )
-      ) {
-
-        if (
-          event.key === "Enter"
-        ) {
-
-          openCard();
-
-        }
-
-        return;
-
-      }
-
-
-      if (
-        event.key ===
-        "ArrowRight"
-      ) {
-
-        nextPage();
-
-      }
-
-
-      if (
-        event.key ===
-        "ArrowLeft"
-      ) {
-
-        previousPage();
-
-      }
-
-
-      if (
-        event.key ===
-        "Escape"
-      ) {
-
-        closeCard();
-
-      }
-
-    }
-  );
-
-
-  /* =========================
-     EVITAR QUE LINKS
-     CIERREN TARJETA
-  ========================= */
+  /* =====================================
+     EVITAR INTERFERENCIA EN LINKS
+  ====================================== */
 
   document
-    .querySelectorAll(
-      ".action-btn"
-    )
+    .querySelectorAll(".action-btn")
     .forEach(
       (button) => {
 
@@ -462,19 +400,72 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-  /* =========================
+
+  /* =====================================
+     TECLADO PARA PC
+  ====================================== */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        !card.classList.contains("open")
+      ) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          openCard();
+
+        }
+
+        return;
+
+      }
+
+
+      if (
+        event.key === "ArrowRight"
+      ) {
+
+        nextPage();
+
+      }
+
+
+      if (
+        event.key === "ArrowLeft"
+      ) {
+
+        previousPage();
+
+      }
+
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeCard();
+
+      }
+
+    }
+  );
+
+
+
+  /* =====================================
      ESTADO INICIAL
-  ========================= */
+  ====================================== */
 
   card.setAttribute(
     "tabindex",
     "0"
   );
 
-  card.setAttribute(
-    "role",
-    "button"
-  );
 
   card.setAttribute(
     "aria-expanded",

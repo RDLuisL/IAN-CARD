@@ -10,6 +10,11 @@
     content="width=device-width, initial-scale=1.0"
   >
 
+  <meta
+    name="theme-color"
+    content="#061a3a"
+  >
+
   <title>Cumpleaños de Ian</title>
 
   <link
@@ -19,6 +24,7 @@
 
 </head>
 
+
 <body>
 
   <main class="card-wrapper">
@@ -26,11 +32,14 @@
     <div
       class="card"
       id="birthdayCard"
+      tabindex="0"
+      aria-expanded="false"
     >
 
-      <!-- =========================
+
+      <!-- =====================================
            PORTADA
-      ========================== -->
+      ====================================== -->
 
       <div class="imgBox">
 
@@ -38,358 +47,322 @@
 
         <img
           src="./portada.jpg"
-          alt="Invitación cumpleaños de Ian"
+          alt="Invitación de cumpleaños de Ian"
         >
 
       </div>
 
 
-      <!-- =========================
+      <!-- =====================================
            INTERIOR
-      ========================== -->
+      ====================================== -->
 
       <div class="book-content">
 
-        <!-- =====================
+
+        <!-- =================================
              PAGINA 1
-        ====================== -->
+        ================================== -->
 
         <section
-          class="page active"
+          class="page page-1 active"
           data-page="1"
         >
 
-          <div class="page-inner invitation-page">
-
-            <div class="web-corner web-top-left"></div>
-            <div class="web-corner web-bottom-right"></div>
-
-            <p class="comic-label">
-              ¡SÚPER FIESTA!
-            </p>
-
-            <h4 class="main-title">
-              🕷️ ¡Ian cumple 4 años! 🕸️
-            </h4>
-
-            <p class="subtitle">
-              ¡Prepárate para una súper aventura!
-            </p>
-
-            <p class="intro">
-              Acompáñanos a celebrar el cumpleaños de
-            </p>
-
-            <h1 class="birthday-name">
-              Ian Arancibia Guerrero
-            </h1>
+          <div class="page-overlay"></div>
 
 
-            <div class="event-panel">
+          <div class="page-content">
 
-              <p>
-                🎂
-                <strong>
-                  ¡Cumplo 4 años!
-                </strong>
+
+            <div class="floating-card intro-card">
+
+
+              <p class="small-label">
+                SÚPER FIESTA
               </p>
 
-              <p>
-                📅
-                <strong>
-                  Sábado 10 de octubre de 2026
-                </strong>
+
+              <h1 class="main-title">
+                Ian cumple 4 años
+              </h1>
+
+
+              <p class="subtitle">
+                Prepárate para una súper aventura
               </p>
 
-              <p>
-                🕓
-                <strong>
-                  Desde las 16:00 hrs
-                </strong>
+
+              <p class="intro-text">
+                Acompáñanos a celebrar el cumpleaños de
               </p>
 
-              <p>
-                📍
-                <strong>
-                  Club Palestino
-                </strong>
-              </p>
+
+              <h2 class="birthday-name">
+                Ian Arancibia Guerrero
+              </h2>
+
 
             </div>
 
 
-            <p class="page-message">
-              Una tarde llena de juegos,
-              sorpresas y mucha diversión.
-            </p>
+            <!-- INDICADOR PARA DESLIZAR -->
+
+            <div class="swipe-container">
+
+              <img
+                class="swipe-hint"
+                src="./deslizar-icon.png"
+                alt="Desliza para continuar"
+              >
+
+              <span class="swipe-text">
+                DESLIZA
+              </span>
+
+            </div>
+
 
           </div>
 
         </section>
 
 
-        <!-- =====================
+
+        <!-- =================================
              PAGINA 2
-        ====================== -->
+        ================================== -->
 
         <section
-          class="page"
+          class="page page-2"
           data-page="2"
         >
 
-          <div class="page-inner mission-page">
-
-            <div class="web-corner web-top-right"></div>
-
-            <p class="comic-label">
-              TU MISIÓN
-            </p>
-
-            <h2 class="mission-title">
-              🕷️ ¡Atención, súper invitado!
-            </h2>
-
-            <p class="mission-text">
-              Ian necesita reunir a su equipo
-              de héroes para celebrar
-              una misión muy especial.
-            </p>
+          <div class="page-overlay"></div>
 
 
-            <div class="mission-card">
-
-              <div class="mission-item">
-
-                <span class="mission-icon">
-                  🦸
-                </span>
-
-                <div>
-                  <strong>
-                    Misión #1
-                  </strong>
-
-                  <p>
-                    Ven preparado para jugar
-                    y divertirte muchísimo.
-                  </p>
-                </div>
-
-              </div>
+          <div class="page-content">
 
 
-              <div class="mission-item">
-
-                <span class="mission-icon">
-                  🎈
-                </span>
-
-                <div>
-                  <strong>
-                    Misión #2
-                  </strong>
-
-                  <p>
-                    Trae toda tu energía
-                    y tus mejores ganas de celebrar.
-                  </p>
-                </div>
-
-              </div>
+            <div class="floating-card event-card">
 
 
-              <div class="mission-item">
-
-                <span class="mission-icon">
-                  🎂
-                </span>
-
-                <div>
-                  <strong>
-                    Misión #3
-                  </strong>
-
-                  <p>
-                    Ayúdanos a hacer de este
-                    cumpleaños un día inolvidable.
-                  </p>
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="hero-message">
-
-              <span>
-                💥
-              </span>
-
-              <p>
-                Los grandes héroes
-                nunca faltan a una buena fiesta.
+              <p class="small-label">
+                LA MISIÓN
               </p>
 
+
+              <h2 class="section-title">
+                Te esperamos
+              </h2>
+
+
+              <div class="event-data">
+
+
+                <div class="event-row">
+
+                  <span class="event-label">
+                    FECHA
+                  </span>
+
+                  <strong>
+                    Sábado 10 de octubre de 2026
+                  </strong>
+
+                </div>
+
+
+                <div class="event-row">
+
+                  <span class="event-label">
+                    HORA
+                  </span>
+
+                  <strong>
+                    Desde las 16:00 hrs
+                  </strong>
+
+                </div>
+
+
+                <div class="event-row">
+
+                  <span class="event-label">
+                    LUGAR
+                  </span>
+
+                  <strong>
+                    Club Palestino
+                  </strong>
+
+                </div>
+
+
+              </div>
+
+
+              <p class="mission-message">
+                Ian necesita reunir a su equipo
+                para celebrar un día muy especial.
+              </p>
+
+
             </div>
+
+
+            <!-- INDICADOR PARA DESLIZAR -->
+
+            <div class="swipe-container">
+
+              <img
+                class="swipe-hint"
+                src="./deslizar-icon.png"
+                alt="Desliza para continuar"
+              >
+
+              <span class="swipe-text">
+                DESLIZA
+              </span>
+
+            </div>
+
 
           </div>
 
         </section>
 
 
-        <!-- =====================
+
+        <!-- =================================
              PAGINA 3
-        ====================== -->
+        ================================== -->
 
         <section
-          class="page"
+          class="page page-3"
           data-page="3"
         >
 
-          <div class="page-inner final-page">
-
-            <div class="web-corner web-bottom-left"></div>
-
-            <p class="comic-label">
-              ¡TE ESPERAMOS!
-            </p>
-
-            <h2 class="final-title">
-              🕸️ Guarda la misión
-            </h2>
-
-            <p class="final-text">
-              Agrega el cumpleaños a tu agenda
-              y revisa cómo llegar al Club Palestino.
-            </p>
+          <div class="page-overlay"></div>
 
 
-            <!-- CALENDAR -->
-
-            <a
-              class="action-btn calendar-btn"
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumpleaños+de+Ian+Arancibia+Guerrero&dates=20261010T160000/20261010T200000&ctz=America/Santiago&details=Celebración+del+4°+cumpleaños+de+Ian+Arancibia+Guerrero.&location=Club+Palestino"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-
-              <span class="action-icon">
-                🗓️
-              </span>
-
-              <span>
-                Agregar a Google Calendar
-              </span>
-
-            </a>
+          <div class="page-content">
 
 
-            <!-- MAPS -->
-
-            <a
-              class="action-btn maps-btn"
-              href="https://maps.app.goo.gl/MTrB8sJNkkRsU8Vz9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-
-              <span class="action-icon">
-                📍
-              </span>
-
-              <span>
-                Ver ubicación
-              </span>
-
-            </a>
+            <div class="floating-card final-card">
 
 
-            <div class="parents-message">
-
-              <p>
-                Será muy especial poder
-                compartir este día contigo.
+              <p class="small-label">
+                COMPLETA TU MISIÓN
               </p>
 
-              <p class="signature">
-                Con cariño,
-                <br>
+
+              <h2 class="section-title">
+                Confirma tu asistencia
+              </h2>
+
+
+              <p class="final-text">
+                Ayúdanos a hacer de este cumpleaños
+                un día inolvidable.
+              </p>
+
+
+
+              <!-- =================================
+                   WHATSAPP
+              ================================== -->
+
+              <a
+                class="action-btn confirm-btn"
+                href="https://wa.me/56956514547?text=Hola%20Camila%21%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ian%20Arancibia%20Guerrero%20el%2010%20de%20octubre."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                Confirmar asistencia
+
+              </a>
+
+
+
+              <!-- =================================
+                   GOOGLE CALENDAR
+              ================================== -->
+
+              <a
+                class="action-btn calendar-btn"
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumpleaños+de+Ian+Arancibia+Guerrero&dates=20261010T160000/20261010T200000&ctz=America/Santiago&details=Celebración+del+4°+cumpleaños+de+Ian+Arancibia+Guerrero.&location=Club+Palestino"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                Agregar a Google Calendar
+
+              </a>
+
+
+
+              <!-- =================================
+                   GOOGLE MAPS
+              ================================== -->
+
+              <a
+                class="action-btn maps-btn"
+                href="https://maps.app.goo.gl/MTrB8sJNkkRsU8Vz9"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                Ver ubicación
+
+              </a>
+
+
+
+              <!-- =================================
+                   PADRES
+              ================================== -->
+
+              <div class="parents">
+
+                <span>
+                  Con cariño,
+                </span>
 
                 <strong>
                   Camila Guerrero
                   <br>
                   y Nelson Arancibia
                 </strong>
-              </p>
+
+              </div>
+
 
             </div>
 
-
-            <p class="last-message">
-              🕷️ ¡Nos vemos en la aventura!
-            </p>
 
           </div>
 
         </section>
 
 
-        <!-- =====================
-             NAVEGACION
-        ====================== -->
-
-        <div class="page-navigation">
-
-          <button
-            class="nav-btn prev-btn"
-            id="prevPage"
-            type="button"
-            aria-label="Página anterior"
-          >
-            ‹
-          </button>
-
-
-          <div class="page-indicator">
-
-            <span id="currentPage">
-              1
-            </span>
-
-            <span class="divider">
-              /
-            </span>
-
-            <span>
-              3
-            </span>
-
-          </div>
-
-
-          <button
-            class="nav-btn next-btn"
-            id="nextPage"
-            type="button"
-            aria-label="Página siguiente"
-          >
-            ›
-          </button>
-
-        </div>
-
       </div>
 
     </div>
 
 
+    <!-- =====================================
+         MENSAJE INFERIOR
+    ====================================== -->
+
     <p
       class="card-hint"
       id="cardHint"
     >
-      👆 Toca la tarjeta para abrirla
+      Toca la tarjeta para abrirla
     </p>
+
 
   </main>
 
