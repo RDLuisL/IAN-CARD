@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+
+  --blue-dark: #071a39;
+  --blue: #0d3f8f;
+  --blue-main: #1358bd;
+  --blue-light: #2877e2;
+
+  --red: #d71d28;
+
+  --paper: #f8fbff;
+  --paper-blue: #edf6ff;
+
+  --text: #092653;
+
+}
+
+
 /* =========================
    RESET
 ========================= */
@@ -9,711 +31,1590 @@
   box-sizing: border-box;
 }
 
+
 html,
 body {
+
   margin: 0;
   padding: 0;
+
   width: 100%;
   min-height: 100%;
+
 }
 
+
 body {
+
   min-height: 100vh;
   min-height: 100dvh;
 
   display: flex;
-  justify-content: center;
+
   align-items: center;
+  justify-content: center;
 
-  padding: 20px;
-
-  font-family: 'Indie Flower', cursive;
+  padding: 20px 10px;
 
   background:
-    radial-gradient(circle at top left, rgba(52, 122, 235, 0.35), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(15, 39, 89, 0.55), transparent 32%),
-    linear-gradient(145deg, #07152d 0%, #0d2c63 42%, #1252b5 75%, #0a2b5c 100%);
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(40, 119, 226, 0.35),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 85%,
+      rgba(19, 88, 189, 0.35),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #041025,
+      #08285c 50%,
+      #104da8
+    );
+
+  font-family:
+    'Indie Flower',
+    cursive;
 
   overflow-x: hidden;
+
 }
 
-::selection {
-  background: transparent;
+
+button,
+a {
+
+  -webkit-tap-highlight-color:
+    transparent;
+
 }
+
 
 /* =========================
    CONTENEDOR
 ========================= */
 
 .card-wrapper {
+
   width: 100%;
+
   display: flex;
+
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
+  justify-content: center;
+
 }
+
 
 /* =========================
    TARJETA
 ========================= */
 
 .card {
+
   --card-width: 300px;
-  --card-height: 400px;
+  --card-height: 420px;
 
   position: relative;
+
   width: var(--card-width);
   height: var(--card-height);
 
-  color: #0a2347;
-  background: #f7fbff;
+  background: var(--paper);
 
-  border: 2px solid #08214a;
-  border-radius: 6px;
+  border:
+    2px solid
+    var(--blue-dark);
 
-  transform-style: preserve-3d;
-  transform: perspective(1800px) rotateY(0deg);
+  border-radius: 5px;
+
+  transform-style:
+    preserve-3d;
+
+  transform:
+    perspective(1800px);
 
   box-shadow:
-    inset 300px 0 50px rgba(0, 0, 0, 0.42),
-    0 18px 45px rgba(0, 0, 0, 0.35),
-    0 0 0 4px rgba(255, 255, 255, 0.04);
+    inset 300px 0 55px
+    rgba(0, 0, 0, 0.45),
+
+    0 18px 45px
+    rgba(0, 0, 0, 0.42);
 
   transition:
     transform 0.8s ease,
     box-shadow 0.8s ease;
 
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
 }
+
+
+/* ABIERTA */
 
 .card.open {
+
   transform:
     perspective(1800px)
-    rotateZ(2deg)
-    scale(1.02);
+    rotateZ(1deg)
+    scale(1.01);
 
   box-shadow:
-    inset 20px 0 50px rgba(0, 0, 0, 0.22),
-    0 18px 55px rgba(0, 0, 0, 0.42),
-    0 0 0 4px rgba(18, 82, 181, 0.12);
+    inset 20px 0 50px
+    rgba(0, 0, 0, 0.18),
+
+    0 22px 55px
+    rgba(0, 0, 0, 0.45);
+
 }
 
+
 /* =========================
-   EFECTO LIBRO
+   LOMO
 ========================= */
 
 .card::before {
+
   content: '';
+
   position: absolute;
+
   top: -5px;
   left: 0;
+
   width: 100%;
   height: 5px;
-  background: #1b5fc8;
-  transform-origin: bottom;
-  transform: skewX(-45deg);
-  z-index: 5;
+
+  background:
+    var(--blue-main);
+
+  transform:
+    skewX(-45deg);
+
+  transform-origin:
+    bottom;
+
 }
 
+
 .card::after {
+
   content: '';
+
   position: absolute;
+
   top: 0;
   right: -5px;
+
   width: 5px;
   height: 100%;
-  background: #081b3a;
-  transform-origin: left;
-  transform: skewY(-45deg);
-  z-index: 5;
+
+  background:
+    var(--blue-dark);
+
+  transform:
+    skewY(-45deg);
+
+  transform-origin:
+    left;
+
 }
+
 
 /* =========================
    PORTADA
 ========================= */
 
-.card .imgBox {
+.imgBox {
+
   position: absolute;
+
   inset: 0;
 
-  transform-origin: left center;
-  transform: perspective(1800px) rotateY(0deg);
-  transform-style: preserve-3d;
+  z-index: 20;
+
+  transform-origin:
+    left center;
+
+  transform-style:
+    preserve-3d;
 
   transition:
-    transform 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+    transform
+    0.9s
+    cubic-bezier(
+      0.77,
+      0,
+      0.175,
+      1
+    );
 
-  z-index: 3;
 }
+
 
 .card.open .imgBox {
-  transform: perspective(1800px) rotateY(-140deg);
+
+  transform:
+    perspective(1800px)
+    rotateY(-140deg);
+
 }
 
-.card .imgBox img {
+
+.imgBox img {
+
   position: absolute;
+
   inset: 0;
 
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   display: block;
 
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  backface-visibility:
+    hidden;
 
-  z-index: 2;
+  -webkit-backface-visibility:
+    hidden;
+
 }
 
-/* Interior de la portada */
-.card .bark {
+
+/* REVERSO PORTADA */
+
+.bark {
+
   position: absolute;
+
   inset: 0;
 
   opacity: 0;
 
-  transform: rotateY(180deg);
+  transform:
+    rotateY(180deg);
 
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  backface-visibility:
+    hidden;
 
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 18%),
-    linear-gradient(145deg, #0a2a5e 0%, #1149a7 45%, #0f3f8f 100%);
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255,255,255,.15),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #061b3c,
+      #0d479e 55%,
+      #0a2f69
+    );
 
   transition:
-    opacity 0.6s ease,
-    box-shadow 0.6s ease;
+    opacity 0.4s ease;
 
-  z-index: 1;
 }
+
 
 .card.open .bark {
+
   opacity: 1;
-  box-shadow:
-    250px 180px 100px rgba(0, 0, 0, 0.28) inset;
+
 }
 
+
 /* =========================
-   INTERIOR
+   LIBRO INTERIOR
 ========================= */
 
-.card .details {
+.book-content {
+
   position: absolute;
+
   inset: 0;
-  z-index: 1;
+
   overflow: hidden;
+
+  background:
+    var(--paper);
+
 }
+
 
 /* =========================
-   INVITACIÓN - FONDO GENIAL
+   PAGINAS
 ========================= */
 
-.invitation {
-  position: relative;
-  padding: 24px 18px 16px;
-  text-align: center;
-  background:
-    linear-gradient(180deg, #fafdff 0%, #edf6ff 100%);
-}
+.page {
 
-/* Telarañas decorativas */
-.invitation::before,
-.invitation::after {
-  content: '';
   position: absolute;
-  width: 120px;
-  height: 120px;
-  opacity: 0.18;
+
+  inset: 0;
+
+  opacity: 0;
+
   pointer-events: none;
-  background:
-    radial-gradient(circle at center, transparent 0 17px, #1d5fc4 18px 19px, transparent 20px),
-    radial-gradient(circle at center, transparent 0 33px, #1d5fc4 34px 35px, transparent 36px),
-    radial-gradient(circle at center, transparent 0 49px, #1d5fc4 50px 51px, transparent 52px),
-    linear-gradient(#1d5fc4, #1d5fc4),
-    linear-gradient(#1d5fc4, #1d5fc4),
-    linear-gradient(#1d5fc4, #1d5fc4),
-    linear-gradient(#1d5fc4, #1d5fc4),
-    linear-gradient(#1d5fc4, #1d5fc4);
-  background-size:
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    1px 100%,
-    100% 1px,
-    1px 100%,
-    100% 1px,
-    1px 100%;
-  background-position:
-    center,
-    center,
-    center,
-    center,
-    center,
-    25% 50%,
-    50% 25%,
-    75% 50%;
-  background-repeat: no-repeat;
-}
 
-.invitation::before {
-  top: -18px;
-  left: -18px;
-}
-
-.invitation::after {
-  bottom: -18px;
-  right: -18px;
-  transform: rotate(180deg);
-}
-
-/* Panel central del contenido */
-.invitation .intro,
-.invitation .event-info,
-.invitation .closing {
-  position: relative;
-  z-index: 2;
-}
-
-.invitation .event-info {
-  margin: 10px auto 12px;
-  padding: 12px 12px 10px;
-  width: 92%;
-
-  background: rgba(255, 255, 255, 0.92);
-
-  border: 2px solid #1c58b2;
-  border-radius: 16px;
-
-  box-shadow:
-    0 8px 18px rgba(14, 49, 105, 0.14),
-    0 0 0 4px rgba(58, 127, 234, 0.09);
-}
-
-/* Franja superior estilo comic */
-.invitation .event-info::before {
-  content: '¡SÚPER FIESTA!';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  padding: 4px 12px;
-
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1px;
-
-  color: white;
-  background: linear-gradient(135deg, #0d3678, #1e67d2);
-  border-radius: 999px;
-  box-shadow: 0 5px 10px rgba(15, 39, 89, 0.22);
-}
-
-/* =========================
-   TITULOS
-========================= */
-
-.invitation .color1 {
-  position: relative;
-  z-index: 2;
-
-  margin: 0 0 4px;
-
-  color: #1154b8;
-
-  font-family: 'Amatic SC', cursive;
-  font-size: 31px;
-  line-height: 1;
-  text-align: center;
-
-  text-shadow:
-    1px 1px 0 #ffffff,
-    2px 2px 0 rgba(8, 33, 74, 0.12);
-}
-
-.invitation .color2 {
-  position: relative;
-  z-index: 2;
-
-  margin: 0 0 8px;
-
-  color: #0c2c63;
-
-  font-family: 'Amatic SC', cursive;
-  font-size: 22px;
-  line-height: 1;
-  text-align: center;
-}
-
-.invitation .intro {
-  margin: 5px 0 6px;
-  padding: 0;
-  color: #11315f;
-  font-size: 13px;
-  line-height: 1.15;
-  text-align: center;
-  transform: none;
-}
-
-/* =========================
-   NOMBRE
-========================= */
-
-.birthday-name {
-  position: relative;
-  z-index: 2;
-
-  margin: 4px 0 10px;
-
-  color: #0f4ead;
-
-  font-family: 'Amatic SC', cursive;
-  font-size: 35px;
-  line-height: 0.95;
-  text-align: center;
-
-  transform: rotate(-1deg);
-
-  text-shadow:
-    1px 1px 0 #ffffff,
-    3px 3px 0 rgba(17, 84, 184, 0.12);
-}
-
-/* =========================
-   DATOS DEL EVENTO
-========================= */
-
-.invitation .event-info p {
-  margin: 5px 0;
-  padding: 0;
-
-  color: #0b2651;
-  font-size: 13px;
-  line-height: 1.18;
-  text-align: center;
-
-  transform: none;
-}
-
-.invitation .event-info strong {
-  color: #0d3678;
-}
-
-/* =========================
-   BOTONES
-========================= */
-
-.invitation-buttons {
-  position: relative;
-  z-index: 2;
-
-  width: 92%;
-  margin: 10px auto 10px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.invitation-btn {
-  min-height: 36px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  padding: 8px 10px;
-
-  border-radius: 12px;
-
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: 0.2px;
-  text-decoration: none;
+  transform:
+    translateX(35px)
+    scale(0.97);
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    opacity 0.35s ease,
+    transform 0.45s ease;
 
-  -webkit-tap-highlight-color: transparent;
 }
 
-.invitation-btn:active {
-  transform: scale(0.97);
+
+.page.active {
+
+  opacity: 1;
+
+  pointer-events: auto;
+
+  transform:
+    translateX(0)
+    scale(1);
+
 }
 
-.btn-icon {
-  font-size: 15px;
+
+.page.exit-left {
+
+  transform:
+    translateX(-35px)
+    scale(0.97);
+
 }
 
-/* Botón principal azul */
-.calendar-btn {
-  color: #ffffff;
-  background: linear-gradient(135deg, #0d3678, #1f72e6);
-  border: 2px solid #0c2b60;
-  box-shadow:
-    0 8px 16px rgba(17, 84, 184, 0.24);
+
+.page-inner {
+
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  padding:
+    24px
+    17px
+    62px;
+
+  overflow: hidden;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #fbfdff,
+      #edf6ff
+    );
+
 }
 
-/* Botón secundario */
-.location-btn {
-  color: #0d3678;
-  background: #ffffff;
-  border: 2px solid #1f72e6;
-  box-shadow:
-    0 8px 16px rgba(17, 84, 184, 0.12);
-}
 
 /* =========================
-   CIERRE
+   TELARAÑAS
 ========================= */
 
-.invitation .closing {
-  margin: 8px 0 6px;
-  padding: 8px 10px;
+.web-corner {
 
-  color: #0b2651;
-  background: rgba(17, 84, 184, 0.07);
+  position: absolute;
 
-  border-left: 4px solid #1f72e6;
-  border-radius: 10px;
+  width: 130px;
+  height: 130px;
 
-  font-size: 12px;
-  line-height: 1.16;
-  text-align: center;
+  opacity: 0.14;
 
-  transform: none;
+  pointer-events: none;
+
+  background:
+
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0 14px,
+      var(--blue-main) 15px 16px
+    );
+
 }
 
-.invitation .parents {
-  position: relative;
-  z-index: 2;
 
-  margin: 7px 0 0;
-  padding: 0;
+.web-top-left {
 
-  color: #0a2347;
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: right;
+  top: -55px;
+  left: -55px;
 
-  transform: rotate(-1deg);
 }
+
+
+.web-top-right {
+
+  top: -55px;
+  right: -55px;
+
+}
+
+
+.web-bottom-left {
+
+  bottom: -55px;
+  left: -55px;
+
+}
+
+
+.web-bottom-right {
+
+  bottom: -55px;
+  right: -55px;
+
+}
+
 
 /* =========================
-   INDICACIÓN
+   LABEL COMIC
+========================= */
+
+.comic-label {
+
+  display: inline-block;
+
+  margin:
+    0 auto
+    8px;
+
+  padding:
+    4px
+    12px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue-dark),
+      var(--blue-light)
+    );
+
+  border-radius:
+    20px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.2px;
+
+  box-shadow:
+    0 4px 10px
+    rgba(7, 26, 57, 0.2);
+
+}
+
+
+/* =========================
+   PAGINA 1
+========================= */
+
+.invitation-page {
+
+  text-align: center;
+
+}
+
+
+.main-title {
+
+  margin:
+    2px
+    0
+    5px;
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    31px;
+
+  line-height: 1;
+
+}
+
+
+.subtitle {
+
+  margin:
+    0
+    0
+    7px;
+
+  color:
+    var(--blue-dark);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    21px;
+
+  font-weight: bold;
+
+}
+
+
+.intro {
+
+  margin:
+    5px
+    0;
+
+  color:
+    var(--text);
+
+  font-size:
+    12px;
+
+  line-height:
+    1.15;
+
+}
+
+
+.birthday-name {
+
+  margin:
+    5px
+    0
+    12px;
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    36px;
+
+  line-height:
+    0.95;
+
+  transform:
+    rotate(-1deg);
+
+}
+
+
+/* PANEL EVENTO */
+
+.event-panel {
+
+  width: 94%;
+
+  margin:
+    0 auto
+    11px;
+
+  padding:
+    10px
+    9px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+
+  border:
+    2px solid
+    var(--blue-main);
+
+  border-radius:
+    15px;
+
+  box-shadow:
+    0 7px 16px
+    rgba(
+      15,
+      70,
+      150,
+      0.14
+    );
+
+}
+
+
+.event-panel p {
+
+  margin:
+    5px
+    0;
+
+  color:
+    var(--text);
+
+  font-size:
+    12px;
+
+  line-height:
+    1.15;
+
+}
+
+
+.event-panel strong {
+
+  color:
+    #0c397b;
+
+}
+
+
+.page-message {
+
+  margin:
+    6px auto;
+
+  width:
+    92%;
+
+  padding:
+    7px
+    9px;
+
+  color:
+    var(--text);
+
+  background:
+    rgba(
+      19,
+      88,
+      189,
+      0.07
+    );
+
+  border-left:
+    4px solid
+    var(--blue-light);
+
+  border-radius:
+    8px;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.2;
+
+}
+
+
+/* =========================
+   PAGINA 2
+========================= */
+
+.mission-page {
+
+  text-align: center;
+
+}
+
+
+.mission-title {
+
+  margin:
+    5px
+    0
+    8px;
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    31px;
+
+  line-height:
+    1;
+
+}
+
+
+.mission-text {
+
+  margin:
+    0 auto
+    12px;
+
+  max-width:
+    250px;
+
+  color:
+    var(--text);
+
+  font-size:
+    12px;
+
+  line-height:
+    1.2;
+
+}
+
+
+.mission-card {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+
+}
+
+
+.mission-item {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  padding:
+    8px
+    10px;
+
+  text-align:
+    left;
+
+  background:
+    white;
+
+  border:
+    1px solid
+    rgba(
+      19,
+      88,
+      189,
+      0.28
+    );
+
+  border-radius:
+    12px;
+
+  box-shadow:
+    0 5px 12px
+    rgba(
+      7,
+      36,
+      80,
+      0.08
+    );
+
+}
+
+
+.mission-icon {
+
+  width:
+    36px;
+
+  min-width:
+    36px;
+
+  height:
+    36px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    #e7f1ff;
+
+  border-radius:
+    50%;
+
+  font-size:
+    19px;
+
+}
+
+
+.mission-item strong {
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    10px;
+
+}
+
+
+.mission-item p {
+
+  margin:
+    2px
+    0
+    0;
+
+  color:
+    var(--text);
+
+  font-size:
+    10px;
+
+  line-height:
+    1.15;
+
+}
+
+
+.hero-message {
+
+  margin:
+    11px auto
+    0;
+
+  padding:
+    7px
+    10px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+
+  width:
+    92%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0d397c,
+      #1764cf
+    );
+
+  border-radius:
+    12px;
+
+  color:
+    white;
+
+}
+
+
+.hero-message p {
+
+  margin: 0;
+
+  font-size:
+    10px;
+
+  line-height:
+    1.15;
+
+}
+
+
+/* =========================
+   PAGINA 3
+========================= */
+
+.final-page {
+
+  text-align:
+    center;
+
+}
+
+
+.final-title {
+
+  margin:
+    7px
+    0
+    8px;
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    33px;
+
+}
+
+
+.final-text {
+
+  margin:
+    0 auto
+    15px;
+
+  width:
+    90%;
+
+  color:
+    var(--text);
+
+  font-size:
+    12px;
+
+  line-height:
+    1.2;
+
+}
+
+
+/* BOTONES */
+
+.action-btn {
+
+  width:
+    92%;
+
+  min-height:
+    42px;
+
+  margin:
+    8px auto;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    7px;
+
+  padding:
+    8px
+    10px;
+
+  border-radius:
+    12px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+
+  text-decoration:
+    none;
+
+  transition:
+    transform
+    0.2s ease;
+
+}
+
+
+.action-btn:active {
+
+  transform:
+    scale(0.96);
+
+}
+
+
+.calendar-btn {
+
+  color:
+    white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b377c,
+      #1e70df
+    );
+
+  border:
+    2px solid
+    #07234d;
+
+  box-shadow:
+    0 7px 15px
+    rgba(
+      14,
+      68,
+      148,
+      0.25
+    );
+
+}
+
+
+.maps-btn {
+
+  color:
+    #0d3f8f;
+
+  background:
+    white;
+
+  border:
+    2px solid
+    var(--blue-main);
+
+  box-shadow:
+    0 7px 15px
+    rgba(
+      14,
+      68,
+      148,
+      0.12
+    );
+
+}
+
+
+.action-icon {
+
+  font-size:
+    16px;
+
+}
+
+
+/* PADRES */
+
+.parents-message {
+
+  width:
+    92%;
+
+  margin:
+    15px auto
+    8px;
+
+  padding:
+    9px
+    10px;
+
+  color:
+    var(--text);
+
+  background:
+    rgba(
+      19,
+      88,
+      189,
+      0.07
+    );
+
+  border-radius:
+    12px;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.2;
+
+}
+
+
+.parents-message p {
+
+  margin:
+    0
+    0
+    7px;
+
+}
+
+
+.parents-message .signature {
+
+  margin: 0;
+
+  text-align:
+    right;
+
+}
+
+
+.last-message {
+
+  margin:
+    12px
+    0;
+
+  color:
+    var(--blue-main);
+
+  font-family:
+    'Amatic SC',
+    cursive;
+
+  font-size:
+    21px;
+
+  font-weight:
+    bold;
+
+}
+
+
+/* =========================
+   NAVEGACION
+========================= */
+
+.page-navigation {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  bottom:
+    13px;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    50;
+
+  width:
+    calc(100% - 30px);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+}
+
+
+.nav-btn {
+
+  width:
+    36px;
+
+  height:
+    32px;
+
+  padding: 0;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  color:
+    white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0c3c84,
+      #1d69d3
+    );
+
+  border:
+    none;
+
+  border-radius:
+    10px;
+
+  font-size:
+    25px;
+
+  line-height:
+    1;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 4px 10px
+    rgba(
+      10,
+      48,
+      105,
+      0.2
+    );
+
+}
+
+
+.nav-btn:disabled {
+
+  opacity:
+    0.28;
+
+  pointer-events:
+    none;
+
+}
+
+
+.page-indicator {
+
+  min-width:
+    54px;
+
+  padding:
+    5px
+    10px;
+
+  color:
+    var(--blue-dark);
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.85
+    );
+
+  border:
+    1px solid
+    rgba(
+      19,
+      88,
+      189,
+      0.2
+    );
+
+  border-radius:
+    20px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+
+}
+
+
+.divider {
+
+  opacity:
+    0.4;
+
+  padding:
+    0
+    3px;
+
+}
+
+
+/* =========================
+   INDICADOR INFERIOR
 ========================= */
 
 .card-hint {
-  margin: 20px 0 0;
-  padding: 8px 14px;
 
-  color: #ffffff;
-  background: rgba(9, 34, 77, 0.82);
+  margin:
+    18px
+    0
+    0;
 
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 20px;
+  padding:
+    8px
+    14px;
 
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
+  color:
+    white;
 
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background:
+    rgba(
+      5,
+      25,
+      57,
+      0.82
+    );
 
-  box-shadow:
-    0 5px 14px rgba(0, 0, 0, 0.22);
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.1
+    );
+
+  border-radius:
+    20px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    11px;
+
+  backdrop-filter:
+    blur(6px);
+
 }
 
+
 /* =========================
-   RESPONSIVE
+   CELULARES
 ========================= */
 
 @media (max-width: 480px) {
-  body {
-    padding: 16px 10px;
-  }
 
   .card {
-    --card-width: min(82vw, 300px);
-    --card-height: min(110vw, 400px);
+
+    --card-width:
+      min(
+        84vw,
+        300px
+      );
+
+    --card-height:
+      min(
+        118vw,
+        420px
+      );
+
   }
+
 }
 
-@media (max-width: 380px) {
-  .card {
-    --card-width: min(80vw, 275px);
-    --card-height: min(107vw, 367px);
-  }
-
-  .invitation {
-    padding: 21px 14px 12px;
-  }
-
-  .invitation .color1 {
-    font-size: 26px;
-  }
-
-  .invitation .color2 {
-    font-size: 18px;
-  }
-
-  .birthday-name {
-    font-size: 30px;
-  }
-
-  .invitation .intro {
-    font-size: 11px;
-  }
-
-  .invitation .event-info {
-    padding: 10px 10px 9px;
-  }
-
-  .invitation .event-info p {
-    font-size: 11px;
-    margin: 4px 0;
-  }
-
-  .invitation-buttons {
-    margin: 8px auto;
-    gap: 6px;
-  }
-
-  .invitation-btn {
-    min-height: 31px;
-    padding: 6px 8px;
-    font-size: 9px;
-  }
-
-  .invitation .closing {
-    font-size: 10px;
-    padding: 7px 8px;
-  }
-
-  .invitation .parents {
-    font-size: 10px;
-  }
-}
-
-@media (max-height: 520px) and (orientation: landscape) {
-  body {
-    overflow-y: auto;
-    align-items: flex-start;
-  }
-
-  .card {
-    --card-width: 230px;
-    --card-height: 305px;
-  }
-
-  .invitation {
-    padding: 16px 11px 9px;
-  }
-
-  .invitation .color1 {
-    font-size: 22px;
-  }
-
-  .invitation .color2 {
-    font-size: 16px;
-  }
-
-  .birthday-name {
-    font-size: 24px;
-  }
-
-  .invitation .intro,
-  .invitation .closing,
-  .invitation .parents {
-    font-size: 9px;
-  }
-
-  .invitation .event-info {
-    padding: 8px 8px 7px;
-  }
-
-  .invitation .event-info::before {
-    font-size: 8px;
-    top: -10px;
-  }
-
-  .invitation .event-info p {
-    font-size: 9px;
-    margin: 2px 0;
-  }
-
-  .invitation-btn {
-    min-height: 25px;
-    font-size: 8px;
-    padding: 4px 6px;
-  }
-}
-
-@media (min-width: 600px) {
-  .card {
-    --card-width: 320px;
-    --card-height: 430px;
-  }
-
-  .invitation .color1 {
-    font-size: 34px;
-  }
-
-  .birthday-name {
-    font-size: 39px;
-  }
-}
 
 /* =========================
-   DESKTOP
+   CELULARES PEQUEÑOS
 ========================= */
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform:
-      perspective(1800px)
-      rotateZ(2deg)
-      scale(1.03);
+@media (max-width: 370px) {
 
-    box-shadow:
-      inset 20px 0 50px rgba(0, 0, 0, 0.22),
-      0 18px 60px rgba(0, 0, 0, 0.45),
-      0 0 0 4px rgba(18, 82, 181, 0.12);
+  .card {
+
+    --card-width:
+      min(
+        82vw,
+        270px
+      );
+
+    --card-height:
+      min(
+        116vw,
+        378px
+      );
+
   }
 
-  .card:hover .imgBox {
-    transform: perspective(1800px) rotateY(-140deg);
+
+  .page-inner {
+
+    padding:
+      18px
+      13px
+      54px;
+
   }
 
-  .card:hover .bark {
-    opacity: 1;
-    box-shadow:
-      250px 180px 100px rgba(0, 0, 0, 0.28) inset;
+
+  .main-title {
+
+    font-size:
+      27px;
+
   }
 
-  .invitation-btn:hover {
-    transform: translateY(-1px);
+
+  .birthday-name {
+
+    font-size:
+      31px;
+
   }
+
+
+  .event-panel p {
+
+    font-size:
+      10px;
+
+  }
+
+
+  .mission-title {
+
+    font-size:
+      27px;
+
+  }
+
+
+  .mission-text {
+
+    font-size:
+      10px;
+
+  }
+
+
+  .mission-item {
+
+    padding:
+      6px
+      8px;
+
+  }
+
+
+  .mission-item p {
+
+    font-size:
+      9px;
+
+  }
+
+
+  .mission-icon {
+
+    width:
+      31px;
+
+    min-width:
+      31px;
+
+    height:
+      31px;
+
+    font-size:
+      16px;
+
+  }
+
+
+  .final-title {
+
+    font-size:
+      28px;
+
+  }
+
+
+  .action-btn {
+
+    min-height:
+      36px;
+
+    font-size:
+      9px;
+
+  }
+
 }
+
+
+/* =========================
+   TABLETS
+========================= */
+
+@media (min-width: 600px) {
+
+  .card {
+
+    --card-width:
+      320px;
+
+    --card-height:
+      450px;
+
+  }
+
+}
+
 
 /* =========================
    ACCESIBILIDAD
 ========================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media
+(prefers-reduced-motion: reduce) {
+
   .card,
-  .card .imgBox,
-  .card .bark,
-  .invitation-btn {
-    transition-duration: 0.01ms;
+  .imgBox,
+  .page,
+  .action-btn {
+
+    transition-duration:
+      0.01ms;
+
   }
+
 }

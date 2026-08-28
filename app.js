@@ -1,92 +1,487 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cards = document.querySelectorAll(".card");
+  const card =
+    document.getElementById("birthdayCard");
 
-  cards.forEach((card) => {
+  const pages =
+    Array.from(
+      document.querySelectorAll(".page")
+    );
 
-    // Permite usar la tarjeta también con teclado
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-expanded", "false");
+  const prevButton =
+    document.getElementById("prevPage");
 
-    const toggleCard = () => {
+  const nextButton =
+    document.getElementById("nextPage");
 
-      const isOpen = card.classList.toggle("open");
+  const currentPageText =
+    document.getElementById("currentPage");
 
-      card.setAttribute(
-        "aria-expanded",
-        isOpen ? "true" : "false"
-      );
-
-    };
+  const cardHint =
+    document.getElementById("cardHint");
 
 
-    // Abrir/cerrar con toque o click
-    card.addEventListener("click", (event) => {
+  let currentPage = 0;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+
+  /* =========================
+     ABRIR TARJETA
+  ========================= */
+
+  function openCard() {
+
+    if (
+      card.classList.contains("open")
+    ) {
+      return;
+    }
+
+    card.classList.add("open");
+
+    card.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    cardHint.textContent =
+      "Desliza o usa las flechas para ver las páginas";
+
+  }
+
+
+  /* =========================
+     CERRAR TARJETA
+  ========================= */
+
+  function closeCard() {
+
+    card.classList.remove("open");
+
+    card.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+    currentPage = 0;
+
+    showPage(currentPage);
+
+    cardHint.textContent =
+      "👆 Toca la tarjeta para abrirla";
+
+  }
+
+
+  /* =========================
+     MOSTRAR PAGINA
+  ========================= */
+
+  function showPage(index) {
+
+    if (
+      index < 0 ||
+      index >= pages.length
+    ) {
+      return;
+    }
+
+
+    pages.forEach(
+      (page, pageIndex) => {
+
+        page.classList.remove(
+          "active",
+          "exit-left"
+        );
+
+
+        if (
+          pageIndex === index
+        ) {
+
+          page.classList.add(
+            "active"
+          );
+
+        }
+
+
+        if (
+          pageIndex < index
+        ) {
+
+          page.classList.add(
+            "exit-left"
+          );
+
+        }
+
+      }
+    );
+
+
+    currentPageText.textContent =
+      index + 1;
+
+
+    prevButton.disabled =
+      index === 0;
+
+
+    nextButton.disabled =
+      index ===
+      pages.length - 1;
+
+  }
+
+
+  /* =========================
+     SIGUIENTE PAGINA
+  ========================= */
+
+  function nextPage() {
+
+    if (
+      currentPage <
+      pages.length - 1
+    ) {
+
+      currentPage++;
+
+      showPage(currentPage);
+
+    }
+
+  }
+
+
+  /* =========================
+     PAGINA ANTERIOR
+  ========================= */
+
+  function previousPage() {
+
+    if (
+      currentPage > 0
+    ) {
+
+      currentPage--;
+
+      showPage(currentPage);
+
+    }
+
+  }
+
+
+  /* =========================
+     CLICK EN TARJETA
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    (event) => {
 
       /*
-        Evita cerrar/abrir accidentalmente
-        si en el futuro agregas enlaces,
-        botones u otros controles
-        dentro de la tarjeta.
+        No abrir/cerrar si tocamos
+        botones o enlaces internos.
       */
 
       if (
         event.target.closest(
-          "a, button, input, textarea, select"
+          "button, a"
         )
       ) {
         return;
       }
 
-      toggleCard();
 
-    });
-
-
-    // Abrir/cerrar con teclado
-    card.addEventListener("keydown", (event) => {
+      /*
+        Si está cerrada,
+        la abrimos.
+      */
 
       if (
-        event.key === "Enter" ||
-        event.key === " "
+        !card.classList.contains(
+          "open"
+        )
       ) {
 
-        event.preventDefault();
-
-        toggleCard();
+        openCard();
 
       }
 
-    });
+    }
+  );
 
-  });
+
+  /* =========================
+     BOTONES
+  ========================= */
+
+  nextButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      nextPage();
+
+    }
+  );
 
 
-  /*
-    Cerrar tarjeta tocando fuera de ella
-  */
+  prevButton.addEventListener(
+    "click",
+    (event) => {
 
-  document.addEventListener("click", (event) => {
+      event.stopPropagation();
 
-    const clickedCard =
-      event.target.closest(".card");
+      previousPage();
 
-    if (clickedCard) {
+    }
+  );
+
+
+  /* =========================
+     SWIPE CELULAR
+  ========================= */
+
+  card.addEventListener(
+    "touchstart",
+    (event) => {
+
+      if (
+        !card.classList.contains(
+          "open"
+        )
+      ) {
+        return;
+      }
+
+
+      touchStartX =
+        event.changedTouches[0]
+          .screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  card.addEventListener(
+    "touchend",
+    (event) => {
+
+      if (
+        !card.classList.contains(
+          "open"
+        )
+      ) {
+        return;
+      }
+
+
+      touchEndX =
+        event.changedTouches[0]
+          .screenX;
+
+
+      handleSwipe();
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  function handleSwipe() {
+
+    const distance =
+      touchEndX -
+      touchStartX;
+
+
+    const minimumSwipe =
+      45;
+
+
+    /*
+      Swipe izquierda
+      -> siguiente
+    */
+
+    if (
+      distance <
+      -minimumSwipe
+    ) {
+
+      nextPage();
+
       return;
+
     }
 
-    cards.forEach((card) => {
 
-      card.classList.remove("open");
+    /*
+      Swipe derecha
+      -> anterior
+    */
 
-      card.setAttribute(
-        "aria-expanded",
-        "false"
-      );
+    if (
+      distance >
+      minimumSwipe
+    ) {
 
-    });
+      previousPage();
 
-  });
+    }
+
+  }
+
+
+  /* =========================
+     CERRAR AL TOCAR FUERA
+  ========================= */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        card.contains(
+          event.target
+        )
+      ) {
+        return;
+      }
+
+
+      if (
+        card.classList.contains(
+          "open"
+        )
+      ) {
+
+        closeCard();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     TECLADO
+  ========================= */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        !card.classList.contains(
+          "open"
+        )
+      ) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          openCard();
+
+        }
+
+        return;
+
+      }
+
+
+      if (
+        event.key ===
+        "ArrowRight"
+      ) {
+
+        nextPage();
+
+      }
+
+
+      if (
+        event.key ===
+        "ArrowLeft"
+      ) {
+
+        previousPage();
+
+      }
+
+
+      if (
+        event.key ===
+        "Escape"
+      ) {
+
+        closeCard();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     EVITAR QUE LINKS
+     CIERREN TARJETA
+  ========================= */
+
+  document
+    .querySelectorAll(
+      ".action-btn"
+    )
+    .forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          (event) => {
+
+            event.stopPropagation();
+
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     ESTADO INICIAL
+  ========================= */
+
+  card.setAttribute(
+    "tabindex",
+    "0"
+  );
+
+  card.setAttribute(
+    "role",
+    "button"
+  );
+
+  card.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+
+  showPage(0);
 
 });
