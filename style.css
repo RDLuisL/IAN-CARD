@@ -1,0 +1,1007 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+
+/* =========================
+   RESET
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  min-height: 100%;
+}
+
+
+body {
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  font-family: 'Indie Flower', cursive;
+
+  background:
+    linear-gradient(
+      135deg,
+      #FDE3A7 0%,
+      #FFD1DC 100%
+    );
+
+  overflow-x: hidden;
+
+}
+
+
+::selection {
+  background: transparent;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.card-wrapper {
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+/* =========================
+   TARJETA
+========================= */
+
+.card {
+
+  --card-width: 300px;
+  --card-height: 400px;
+
+  position: relative;
+
+  width: var(--card-width);
+  height: var(--card-height);
+
+  color: #013243;
+
+  background: #f7f3e8;
+
+  transform-style: preserve-3d;
+
+  transform:
+    perspective(1800px)
+    rotateY(0deg);
+
+  box-shadow:
+    inset 300px 0 50px rgba(0, 0, 0, 0.45),
+    15px 10px 40px rgba(0, 0, 0, 0.30);
+
+  transition:
+    transform 0.8s ease,
+    box-shadow 0.8s ease;
+
+  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
+
+  touch-action: manipulation;
+
+}
+
+
+/* TARJETA ABIERTA */
+
+.card.open {
+
+  transform:
+    perspective(1800px)
+    rotateZ(2deg)
+    scale(1.02);
+
+  box-shadow:
+    inset 20px 0 50px rgba(0, 0, 0, 0.28),
+    0 15px 50px rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* =========================
+   EFECTO LIBRO
+========================= */
+
+.card::before {
+
+  content: '';
+
+  position: absolute;
+
+  top: -5px;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: #d3cbb8;
+
+  transform-origin: bottom;
+
+  transform: skewX(-45deg);
+
+  z-index: 5;
+
+}
+
+
+.card::after {
+
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  right: -5px;
+
+  width: 5px;
+  height: 100%;
+
+  background: #b5aa97;
+
+  transform-origin: left;
+
+  transform: skewY(-45deg);
+
+  z-index: 5;
+
+}
+
+
+/* =========================
+   PORTADA
+========================= */
+
+.card .imgBox {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  transform-origin: left center;
+
+  transform:
+    perspective(1800px)
+    rotateY(0deg);
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.85s
+    cubic-bezier(
+      0.77,
+      0,
+      0.175,
+      1
+    );
+
+  z-index: 3;
+
+}
+
+
+/* ABRIR PORTADA */
+
+.card.open .imgBox {
+
+  transform:
+    perspective(1800px)
+    rotateY(-140deg);
+
+}
+
+
+/* IMAGEN DE PORTADA */
+
+.card .imgBox img {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+  z-index: 2;
+
+}
+
+
+/* PARTE INTERIOR DE LA PORTADA */
+
+.card .bark {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: #f7f3e8;
+
+  opacity: 0;
+
+  transform: rotateY(180deg);
+
+  backface-visibility: hidden;
+
+  -webkit-backface-visibility: hidden;
+
+  transition:
+    opacity 0.6s ease,
+    box-shadow 0.6s ease;
+
+  z-index: 1;
+
+}
+
+
+.card.open .bark {
+
+  opacity: 1;
+
+  box-shadow:
+    250px 180px 100px
+    rgba(0, 0, 0, 0.28)
+    inset;
+
+}
+
+
+/* =========================
+   INTERIOR
+========================= */
+
+.card .details {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================
+   INVITACIÓN
+========================= */
+
+.invitation {
+
+  padding:
+    30px
+    20px
+    18px;
+
+  text-align: center;
+
+}
+
+
+/* TITULO PRINCIPAL */
+
+.invitation .color1 {
+
+  margin: 0 0 5px;
+
+  color: #1BBC9B;
+
+  font-family: 'Amatic SC', cursive;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  text-align: center;
+
+}
+
+
+/* SUBTITULO */
+
+.invitation .color2 {
+
+  margin: 0 0 10px;
+
+  color: #C0392B;
+
+  font-family: 'Amatic SC', cursive;
+
+  font-size: 22px;
+
+  line-height: 1;
+
+  text-align: center;
+
+}
+
+
+/* TEXTO INTRODUCTORIO */
+
+.invitation .intro {
+
+  margin: 6px 0;
+
+  padding: 0;
+
+  font-size: 13px;
+
+  line-height: 1.15;
+
+  text-align: center;
+
+  transform: none;
+
+}
+
+
+/* =========================
+   NOMBRE
+========================= */
+
+.birthday-name {
+
+  margin: 5px 0 10px;
+
+  color: #C0392B;
+
+  font-family: 'Amatic SC', cursive;
+
+  font-size: 34px;
+
+  line-height: 0.95;
+
+  text-align: center;
+
+  transform: rotate(-2deg);
+
+}
+
+
+/* =========================
+   INFORMACIÓN EVENTO
+========================= */
+
+.event-info {
+
+  margin: 8px 0 10px;
+
+}
+
+
+.invitation .event-info p {
+
+  margin: 4px 0;
+
+  padding: 0;
+
+  font-size: 13px;
+
+  line-height: 1.15;
+
+  text-align: center;
+
+  transform: none;
+
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.invitation-buttons {
+
+  width: 92%;
+
+  margin:
+    12px auto
+    10px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+}
+
+
+.invitation-btn {
+
+  min-height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding:
+    7px
+    10px;
+
+  border-radius: 18px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  line-height: 1.1;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+
+.invitation-btn:active {
+
+  transform: scale(0.96);
+
+}
+
+
+.btn-icon {
+
+  font-size: 15px;
+
+}
+
+
+/* GOOGLE CALENDAR */
+
+.calendar-btn {
+
+  color: #4285F4;
+
+  background: white;
+
+  border:
+    1px solid
+    rgba(
+      66,
+      133,
+      244,
+      0.35
+    );
+
+  box-shadow:
+    0 3px 8px
+    rgba(
+      0,
+      0,
+      0,
+      0.12
+    );
+
+}
+
+
+/* UBICACION */
+
+.location-btn {
+
+  color: white;
+
+  background: #1BBC9B;
+
+  border:
+    1px solid
+    rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+
+  box-shadow:
+    0 3px 8px
+    rgba(
+      0,
+      0,
+      0,
+      0.12
+    );
+
+}
+
+
+/* =========================
+   TEXTO FINAL
+========================= */
+
+.invitation .closing {
+
+  margin: 8px 0;
+
+  padding: 0;
+
+  font-size: 12px;
+
+  line-height: 1.15;
+
+  text-align: center;
+
+  transform: none;
+
+}
+
+
+/* =========================
+   PADRES
+========================= */
+
+.invitation .parents {
+
+  margin: 7px 0 0;
+
+  padding: 0;
+
+  color: #013243;
+
+  font-size: 12px;
+
+  line-height: 1.2;
+
+  text-align: right;
+
+  transform: rotate(-2deg);
+
+}
+
+
+/* =========================
+   INDICACIÓN
+========================= */
+
+.card-hint {
+
+  margin:
+    20px
+    0
+    0;
+
+  padding:
+    7px
+    14px;
+
+  color: #013243;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.55
+    );
+
+  border-radius: 20px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 12px;
+
+  text-align: center;
+
+  backdrop-filter: blur(6px);
+
+  -webkit-backdrop-filter: blur(6px);
+
+}
+
+
+/* =========================
+   CELULARES NORMALES
+========================= */
+
+@media (max-width: 480px) {
+
+  body {
+
+    padding:
+      16px
+      10px;
+
+  }
+
+
+  .card {
+
+    --card-width:
+      min(
+        82vw,
+        300px
+      );
+
+    --card-height:
+      min(
+        110vw,
+        400px
+      );
+
+  }
+
+}
+
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media (max-width: 380px) {
+
+  .card {
+
+    --card-width:
+      min(
+        80vw,
+        275px
+      );
+
+    --card-height:
+      min(
+        107vw,
+        367px
+      );
+
+  }
+
+
+  .invitation {
+
+    padding:
+      22px
+      15px
+      12px;
+
+  }
+
+
+  .invitation .color1 {
+
+    font-size: 26px;
+
+  }
+
+
+  .invitation .color2 {
+
+    font-size: 19px;
+
+  }
+
+
+  .birthday-name {
+
+    font-size: 30px;
+
+  }
+
+
+  .invitation .intro {
+
+    font-size: 11px;
+
+  }
+
+
+  .invitation .event-info p {
+
+    font-size: 11px;
+
+    margin:
+      3px
+      0;
+
+  }
+
+
+  .invitation-buttons {
+
+    margin:
+      8px
+      auto;
+
+    gap: 5px;
+
+  }
+
+
+  .invitation-btn {
+
+    min-height: 30px;
+
+    padding:
+      5px
+      8px;
+
+    font-size: 9px;
+
+  }
+
+
+  .invitation .closing {
+
+    font-size: 10px;
+
+  }
+
+
+  .invitation .parents {
+
+    font-size: 10px;
+
+  }
+
+}
+
+
+/* =========================
+   CELULAR HORIZONTAL
+========================= */
+
+@media
+(max-height: 520px)
+and
+(orientation: landscape) {
+
+  body {
+
+    overflow-y: auto;
+
+    align-items: flex-start;
+
+  }
+
+
+  .card {
+
+    --card-width: 230px;
+    --card-height: 305px;
+
+  }
+
+
+  .invitation {
+
+    padding:
+      18px
+      12px
+      10px;
+
+  }
+
+
+  .invitation .color1 {
+
+    font-size: 22px;
+
+  }
+
+
+  .invitation .color2 {
+
+    font-size: 17px;
+
+  }
+
+
+  .birthday-name {
+
+    font-size: 25px;
+
+  }
+
+
+  .invitation .event-info p {
+
+    font-size: 9px;
+
+    margin:
+      2px
+      0;
+
+  }
+
+
+  .invitation .intro,
+  .invitation .closing,
+  .invitation .parents {
+
+    font-size: 9px;
+
+  }
+
+
+  .invitation-btn {
+
+    min-height: 25px;
+
+    font-size: 8px;
+
+    padding:
+      4px
+      6px;
+
+  }
+
+}
+
+
+/* =========================
+   TABLETS
+========================= */
+
+@media (min-width: 600px) {
+
+  .card {
+
+    --card-width: 320px;
+    --card-height: 430px;
+
+  }
+
+
+  .invitation .color1 {
+
+    font-size: 33px;
+
+  }
+
+
+  .birthday-name {
+
+    font-size: 38px;
+
+  }
+
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media
+(hover: hover)
+and
+(pointer: fine) {
+
+  .card:hover {
+
+    transform:
+      perspective(1800px)
+      rotateZ(2deg)
+      scale(1.03);
+
+    box-shadow:
+      inset 20px 0 50px
+      rgba(
+        0,
+        0,
+        0,
+        0.28
+      ),
+
+      0 15px 60px
+      rgba(
+        0,
+        0,
+        0,
+        0.35
+      );
+
+  }
+
+
+  .card:hover .imgBox {
+
+    transform:
+      perspective(1800px)
+      rotateY(-140deg);
+
+  }
+
+
+  .card:hover .bark {
+
+    opacity: 1;
+
+    box-shadow:
+      250px 180px 100px
+      rgba(
+        0,
+        0,
+        0,
+        0.28
+      )
+      inset;
+
+  }
+
+}
+
+
+/* =========================
+   ACCESIBILIDAD
+========================= */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+  .card,
+  .card .imgBox,
+  .card .bark,
+  .invitation-btn {
+
+    transition-duration:
+      0.01ms;
+
+  }
+
+}
